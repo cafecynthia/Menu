@@ -1,0 +1,853 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#201c19">
+<meta name="description" content="Explore the Café Cynthia Turf & Treats menu and place your dine-in order on WhatsApp. Open daily 4 PM – 11 PM.">
+<title>Café Cynthia | Turf & Treats</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23805638'/%3E%3Cpath d='M30 42h30v14a15 15 0 0 1-15 15 15 15 0 0 1-15-15z' fill='%23fffdf9'/%3E%3C/svg%3E">
+<style>
+:root{
+  --ink:#211e1b; --brown:#805638; --cream:#f7f1e9; --paper:#fffdf9;
+  --muted:#82766b; --line:#e9dfd4; --gold:#b18a62; --green:#246b43;
+  --chip:#f0e7dc; --chip-ink:#68472f;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--cream); color:var(--ink);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  font-size:15px; line-height:1.45; -webkit-font-smoothing:antialiased;
+}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0}
+img{max-width:100%}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--brown); outline-offset:2px; border-radius:8px;}
+.wrap{max-width:760px;margin:auto;padding-bottom:120px}
+
+/* ─────────────── HERO ─────────────── */
+.hero{background:var(--paper);padding:24px 18px 20px;text-align:center;border-bottom:1px solid var(--line)}
+.logo{width:100%;max-width:260px;height:auto;display:block;margin:0 auto}
+.sub{color:var(--muted);font-size:12px;margin:14px 0 0}
+.pills{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+.pill{display:inline-flex;align-items:center;gap:6px;background:var(--chip);color:var(--chip-ink);border-radius:99px;padding:7px 13px;font-size:12px;font-weight:700}
+.pill.is-open{background:#e8f0e5;color:#3f6b34}
+.pill.is-closed{background:#f7e6e2;color:#8a3b28}
+.live-dot{width:7px;height:7px;border-radius:50%;background:currentColor;box-shadow:0 0 0 3px #0000000d}
+
+/* ─────────────── INTRO ─────────────── */
+.intro{padding:20px 16px 6px}
+.eyebrow{color:var(--brown);font-size:10px;letter-spacing:.2em;font-weight:800;text-transform:uppercase}
+.intro h1{font:26px Georgia,serif;margin:6px 0;line-height:1.25}
+.intro p{font-size:13px;color:var(--muted);margin:0}
+
+/* ─────────────── SEARCH ─────────────── */
+.search{position:relative;margin:16px 16px 6px}
+.search input{width:100%;border:1px solid var(--line);background:var(--paper);border-radius:14px;padding:14px 44px 14px 42px;outline:none;font-size:15px;}
+.search input::placeholder{color:#a99c90}
+.search .icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:17px;pointer-events:none}
+.search .clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:30px;height:30px;border-radius:50%;background:#eee5dc;color:#6b5d51;font-size:16px;display:none;align-items:center;justify-content:center;line-height:1;}
+.search.has-value .clear{display:flex}
+
+/* ─────────────── CHIPS ─────────────── */
+.chips{display:flex;flex-wrap:wrap;gap:8px;padding:10px 16px 12px;background:var(--cream);}
+.chips button{white-space:normal;border:1px solid var(--line);background:var(--paper);color:#65594e;border-radius:99px;padding:9px 15px;font-size:12.5px;font-weight:600;min-height:38px;flex: 0 1 auto;transition: background 0.2s;}
+.chips button.active{background:var(--ink);border-color:var(--ink);color:#fff}
+
+/* ─────────────── SECTIONS / ITEMS ─────────────── */
+.section{scroll-margin-top:64px}
+.section-title{padding:12px 16px 8px;display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.section-title h2{font:21px Georgia,serif;margin:0}
+.section-title small{color:var(--muted);font-size:11px;white-space:nowrap}
+.menu{padding:0 12px}
+.item{display:flex;gap:12px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:15px;padding:13px;margin:8px 4px;transition:border-color .18s,box-shadow .18s;}
+@media(hover:hover){.item:hover{border-color:#d9c5b1;box-shadow:0 2px 10px #00000008}}
+.item-main{min-width:0;flex:1}
+.item h3{font-size:15px;margin:0 0 5px;font-weight:650;line-height:1.3;display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
+.item p{font-size:12px;line-height:1.5;color:var(--muted);margin:0}
+.price{font-size:14px;font-weight:800;white-space:nowrap;color:var(--brown);margin-top:8px}
+
+.veg-dot{width:12px;height:12px;border:2px solid #3a8a3a;border-radius:3px;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;}
+.veg-dot::after{content:"";width:5px;height:5px;border-radius:50%;background:#3a8a3a}
+.veg-dot.nonveg{border-color:#b03a3a}
+.veg-dot.nonveg::after{background:#b03a3a}
+
+.badge{font-size:9.5px;padding:2px 7px;border-radius:99px;background:#f5e6d3;color:#805638;font-weight:800;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;}
+
+.ctl{flex:0 0 auto;display:flex;align-items:center}
+.add{width:44px;height:44px;border:1px solid #d9c5b1;border-radius:12px;background:#f6eee5;color:var(--brown);font-size:24px;line-height:1;display:flex;align-items:center;justify-content:center;transition:transform .12s;}
+.add:active{transform:scale(.94)}
+.stepper{display:none;align-items:center;gap:8px;font-weight:800;font-size:14px}
+.item.has-qty .add{display:none}
+.item.has-qty .stepper{display:flex}
+.stepper button{width:36px;height:36px;border-radius:10px;background:var(--ink);color:#fff;font-size:18px;line-height:1;display:flex;align-items:center;justify-content:center;}
+.stepper button:active{transform:scale(.94)}
+.stepper .q{min-width:18px;text-align:center;font-variant-numeric:tabular-nums}
+
+.item.unavailable{opacity:.6}
+.soldout{font-size:11px;font-weight:800;color:#a05a48;background:#f7e6e2;padding:7px 11px;border-radius:9px;white-space:nowrap;}
+.hidden{display:none !important}
+.empty{padding:38px 20px;text-align:center;color:var(--muted);font-size:13px;line-height:1.6}
+
+/* ─────────────── NOTICES ─────────────── */
+.notice{margin:16px;background:#f0e8de;border-radius:12px;padding:13px 15px;color:#695744;font-size:11.5px;line-height:1.6;}
+.notice.alert{background:#fdeee9;color:#8a3b28}
+
+/* ─────────────── STICKY CART BAR ─────────────── */
+.sticky{position:fixed;z-index:7;bottom:0;left:0;right:0;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:#fffdf9f0; -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);border-top:1px solid var(--line);transform:translateY(130%);transition:transform .28s cubic-bezier(.2,.8,.3,1);}
+.sticky.visible{transform:translateY(0)}
+.cartbar{max-width:728px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cartinfo strong{display:block;font-size:14px;font-variant-numeric:tabular-nums}
+.cartinfo small{color:var(--muted);font-size:11px}
+.cartinfo strong.pop{animation:pop .32s ease}
+@keyframes pop{0%{transform:scale(1)}45%{transform:scale(1.22)}100%{transform:scale(1)}}
+.viewcart{border-radius:12px;background:var(--ink);color:#fff;padding:14px 20px;font-size:13.5px;font-weight:700;min-height:48px;}
+
+/* ─────────────── MODALS ─────────────── */
+.modal{display:none;position:fixed;inset:0;z-index:10;background:#17120f88;align-items:flex-end;justify-content:center;-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);}
+.modal.open{display:flex}
+.sheet{background:var(--paper);width:100%;max-width:760px;max-height:88dvh;overflow:auto;border-radius:22px 22px 0 0;padding:19px 17px calc(20px + env(safe-area-inset-bottom));animation:slideUp .26s cubic-bezier(.2,.8,.3,1);}
+@keyframes slideUp{from{transform:translateY(24px);opacity:.6}to{transform:translateY(0);opacity:1}}
+.sheethead{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.sheet h2{font:23px Georgia,serif;margin:0}
+.close{width:38px;height:38px;border-radius:50%;background:#eee5dc;color:#5f5348;font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center;flex:0 0 auto;}
+.cartline{display:flex;justify-content:space-between;gap:12px;padding:13px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.cartline .ln-name{font-weight:650}
+.cartline small{display:block;color:var(--muted);margin-top:4px;font-weight:500}
+.cartline .ln-price{white-space:nowrap;font-weight:700;color:var(--brown)}
+
+.field{margin-top:15px}
+.field label{display:block;font-size:11px;font-weight:800;color:#66594d;margin-bottom:6px;letter-spacing:.02em}
+.field input,.field textarea,.field select{width:100%;border:1px solid var(--line);border-radius:11px;background:var(--paper);padding:12px;outline:none;font-size:14px;}
+.field textarea{min-height:66px;resize:vertical}
+.field .hint{font-size:10.5px;color:var(--muted);margin-top:5px}
+
+.total{display:flex;justify-content:space-between;font-weight:800;padding:17px 0 6px;font-size:16px}
+.send{width:100%;border-radius:12px;background:var(--green);color:#fff;padding:16px;font-weight:800;font-size:14.5px;min-height:52px;margin-top:10px;}
+.send:disabled{opacity:.5}
+.fine{font-size:10.5px;color:var(--muted);line-height:1.6;margin-top:10px}
+
+.done{text-align:center;padding:14px 6px 4px}
+.done .tick{width:64px;height:64px;border-radius:50%;background:#e8f0e5;color:#3f6b34;font-size:30px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
+.done h2{font:22px Georgia,serif;margin:0 0 6px}
+.done p{color:var(--muted);font-size:13px;margin:0 0 4px}
+.done .oid{font-weight:800;color:var(--brown);font-size:15px;margin:10px 0 18px}
+
+.toast{position:fixed;left:50%;bottom:104px;transform:translate(-50%,16px);background:var(--ink);color:#fff;padding:11px 18px;border-radius:99px;font-size:12.5px;font-weight:600;opacity:0;transition:opacity .22s,transform .22s;z-index:20;pointer-events:none;max-width:88vw;text-align:center;}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+.footer{text-align:center;padding:28px 20px 10px;color:var(--muted);font-size:10.5px;letter-spacing:.08em}
+.adminlink{display:inline-block;color:var(--brown);margin-top:10px;text-decoration:underline;font-size:11px}
+
+/* ─────────────── CALL WAITER BUTTON ─────────────── */
+.call-waiter-btn{
+  position:fixed; bottom:80px; left:16px; z-index:8;
+  background:var(--paper); border:1px solid var(--brown); color:var(--brown);
+  padding:10px 15px; border-radius:99px; font-weight:700; font-size:13px;
+  box-shadow:0 4px 12px #00000015; display:none; align-items:center; gap:6px;
+  transition:transform 0.2s;
+}
+.call-waiter-btn:active{transform:scale(0.95)}
+.call-waiter-btn.show{display:flex}
+
+/* ─────────────── UPSELL BOX ─────────────── */
+.upsell-box{
+  background:#fff8f0; border:1px dashed var(--gold); border-radius:12px;
+  padding:12px; margin-top:20px; display:flex; align-items:center; justify-content:space-between; gap:10px;
+}
+.upsell-box .up-info{font-size:13px;}
+.upsell-box .up-info strong{display:block; color:var(--brown); font-size:14px;}
+.upsell-box .up-info span{color:var(--muted); font-size:11px;}
+.upsell-box button{
+  background:var(--gold); color:white; border-radius:8px; padding:8px 14px;
+  font-weight:800; font-size:12px; white-space:nowrap;
+}
+
+@media(min-width:620px){
+  .hero{padding-top:30px}
+  .logo{max-width:300px}
+  .intro h1{font-size:32px}
+  .menu{display:grid;grid-template-columns:1fr 1fr;gap:0 8px}
+  .item{align-items:flex-start}
+  .ctl{margin-top:2px}
+}
+
+/* ─────────────── DARK MODE ─────────────── */
+@media(prefers-color-scheme:dark){
+  :root{
+    --ink:#f6f0e8; --cream:#171412; --paper:#211c18; --line:#3a322b;
+    --muted:#a2958a; --brown:#d8ab7f; --gold:#a67d52; --green:#2f7a4d;
+    --chip:#2c251f; --chip-ink:#e0c3a3;
+  }
+  .add{background:#2c251f;border-color:#4a3d32}
+  .stepper button{background:var(--brown);color:#171412;}
+  .viewcart{background:var(--brown);color:#171412;}
+  .chips button.active{background:var(--brown);border-color:var(--brown);color:#171412;}
+  .close{background:#2c251f;color:#d8ccbf}
+  .search .clear{background:#2c251f;color:#d8ccbf}
+  .sticky{background:#211c18f0}
+  .notice{background:#2a231d;color:#d3c3b2}
+  .notice.alert{background:#3a231d;color:#f0b9a8}
+  .pill.is-open{background:#22301f;color:#9cc98d}
+  .pill.is-closed{background:#33221d;color:#e6a795}
+  .badge{background:#3a2c1d;color:#e0bf94}
+  .soldout{background:#3a231d;color:#e6a795}
+  .done .tick{background:#22301f;color:#9cc98d}
+  .modal{background:#000000aa}
+  .toast{background:var(--brown);color:#171412;}
+  .call-waiter-btn{background:var(--paper); border-color:var(--brown);}
+  .upsell-box{background:#2a231d; border-color:var(--gold);}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation:none !important;transition:none !important}
+  html{scroll-behavior:auto !important}
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+  
+  <header class="hero">
+    <!-- SVG LOGO CODE PLACEHOLDER -->
+    <svg class="logo" viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
+      <path d="M180 40 C120 40 70 90 70 160 C70 230 120 280 180 280 C130 260 100 210 100 160 C100 110 130 60 180 40 Z" fill="#805638"/>
+      <path d="M210 50 C150 50 100 100 100 170 C100 240 150 290 210 290 C240 290 260 280 270 270 L270 230 C250 250 230 260 210 260 C160 260 130 220 130 170 C130 120 160 80 210 80 C230 80 250 90 270 110 L270 70 C250 60 230 50 210 50 Z" fill="#1c1c1c"/>
+      <rect x="190" y="180" width="60" height="40" rx="5" fill="#1c1c1c"/>
+      <path d="M250 190 Q270 190 270 200 Q270 210 250 210" fill="none" stroke="#1c1c1c" stroke-width="8" stroke-linecap="round"/>
+      <path d="M210 170 Q215 160 210 150 Q205 140 210 130" fill="none" stroke="#805638" stroke-width="4" stroke-linecap="round"/>
+      <path d="M230 170 Q235 160 230 150 Q225 140 230 130" fill="none" stroke="#805638" stroke-width="4" stroke-linecap="round"/>
+      <path d="M100 300 Q200 280 300 300" fill="none" stroke="#1c1c1c" stroke-width="6"/>
+      <path d="M120 315 Q200 295 280 315" fill="none" stroke="#805638" stroke-width="5"/>
+      <text x="200" y="340" text-anchor="middle" font-family="Georgia, serif" font-size="24" letter-spacing="6" fill="#805638">CAFÉ</text>
+      <text x="200" y="380" text-anchor="middle" font-family="Georgia, serif" font-size="46" letter-spacing="10" fill="#1c1c1c">CYNTHIA</text>
+      <path d="M140 395 L185 395 M215 395 L260 395" stroke="#805638" stroke-width="1"/>
+      <text x="200" y="420" text-anchor="middle" font-family="sans-serif" font-size="14" letter-spacing="8" fill="#805638">TURF &amp; TREATS</text>
+    </svg>
+
+    <p class="sub">A fine selection of food, coffee &amp; sweet treats.</p>
+    <div class="pills">
+      <span class="pill" id="openPill"><span class="live-dot"></span><span id="openText">Checking hours…</span></span>
+      <span class="pill" id="tablePill">🍽️ Dine-in</span>
+    </div>
+  </header>
+
+  <section class="intro">
+    <div class="eyebrow">Today's menu</div>
+    <h1>What are we having?</h1>
+    <p>Tap ➕ to build your order — we'll send it straight to WhatsApp.</p>
+  </section>
+
+  <div class="search" id="searchWrap">
+    <span class="icon" aria-hidden="true">⌕</span>
+    <input id="search" type="search" placeholder="Search dishes…" aria-label="Search the menu" autocomplete="off">
+    <button class="clear" id="searchClear" type="button" aria-label="Clear search">✕</button>
+  </div>
+
+  <nav class="chips" id="chips" aria-label="Menu categories"></nav>
+
+  <div id="menu"></div>
+  <p class="empty hidden" id="emptyState">🫖 Nothing matches your search.<br>Try a different word or category.</p>
+
+  <div class="notice alert hidden" id="closedNotice">
+    🕓 <b>We're closed right now.</b> The kitchen runs 4:00 PM – 11:00 PM daily.
+    You can still browse — your order will be prepared once we open.
+  </div>
+
+  <div class="notice">
+    Prices are in ₹ and inclusive of taxes. Please mention allergies in the order notes.
+    Your order is confirmed only after we reply on WhatsApp.
+  </div>
+
+  <footer class="footer">
+    Sangeet Nagar, behind Vajras Abode, Kukatpally, Hyderabad, Telangana 500072<br>
+    © <span id="year"></span> CAFÉ CYNTHIA · TURF &amp; TREATS
+    <br><a class="adminlink" href="admin.html">Menu manager</a>
+  </footer>
+</main>
+
+<!-- Floating Call Waiter Button -->
+<button class="call-waiter-btn" id="callWaiterBtn">🛎️ Call Waiter</button>
+
+<div class="sticky" id="sticky">
+  <div class="cartbar">
+    <div class="cartinfo" aria-live="polite">
+      <strong id="cartCount">0 items</strong>
+      <small id="cartTotal">₹0</small>
+    </div>
+    <button class="viewcart" id="viewCart">View cart →</button>
+  </div>
+</div>
+
+<div class="modal" id="cartModal" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+  <div class="sheet" id="cartSheet">
+    <div class="sheethead">
+      <h2 id="cartTitle">Your order</h2>
+      <button class="close" type="button" data-close aria-label="Close cart">✕</button>
+    </div>
+
+    <div id="cartLines"></div>
+    
+    <!-- Upsell Area -->
+    <div id="upsellBox" class="upsell-box" style="display:none;">
+      <div class="up-info">
+        <span>Complete your meal?</span>
+        <strong id="upsellName">Item Name</strong>
+      </div>
+      <button id="upsellAddBtn" type="button">+ Add</button>
+    </div>
+
+    <div class="total"><span>Total</span><span id="modalTotal">₹0</span></div>
+
+    <div class="field">
+      <label for="orderType">Order type</label>
+      <select id="orderType">
+        <option value="Dine-in">Dine-in</option>
+        <option value="Takeaway">Takeaway</option>
+      </select>
+    </div>
+
+    <div class="field" id="tableField">
+      <label for="tableNo">Table Number *</label>
+      <input id="tableNo" type="text" placeholder="e.g. 5" required>
+      <div class="hint">Please enter the table number you are seated at.</div>
+    </div>
+
+    <div class="field">
+      <label for="custName">Your name *</label>
+      <input id="custName" type="text" placeholder="e.g. Aditi" autocomplete="name" required>
+    </div>
+
+    <div class="field">
+      <label for="custNotes">Notes for the kitchen</label>
+      <textarea id="custNotes" placeholder="Allergies, less spicy, extra napkins…"></textarea>
+    </div>
+
+    <button class="send" id="sendBtn" type="button">Send order on WhatsApp</button>
+    <p class="fine" id="sendFine">Opens WhatsApp with your order ready to send. Nothing is charged here.</p>
+  </div>
+</div>
+
+<div class="modal" id="doneModal" role="dialog" aria-modal="true" aria-labelledby="doneTitle">
+  <div class="sheet">
+    <div class="done">
+      <div class="tick" aria-hidden="true">✓</div>
+      <h2 id="doneTitle">Order sent!</h2>
+      <p>We've opened WhatsApp with your order.</p>
+      <p>Please hit <b>send</b> there to confirm.</p>
+      <div class="oid" id="doneOrderId">CC-00000</div>
+      <button class="send" id="newOrderBtn" type="button">Start a new order</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+'use strict';
+
+const ITEMS=[
+{"category":"Bowls & Mains","name":"Pesto Grilled Fish","price":349,"description":"Grilled fish with pesto, brown rice, sautéed vegetables, and fresh salad.","veg":false},
+{"category":"Bowls & Mains","name":"Chipotle Bowl - Chicken","price":269,"description":"Choice of chicken or paneer with chipotle seasoning, basmati rice, sautéed vegetables, and fresh salad.","veg":false},
+{"category":"Bowls & Mains","name":"Chipotle Bowl - Paneer","price":269,"description":"Choice of chicken or paneer with chipotle seasoning, basmati rice, sautéed vegetables, and fresh salad.","veg":true},
+{"category":"Bowls & Mains","name":"Rajma Rice Bowl","price":229,"description":"Rajma beans, fragrant rice pilaf, sautéed vegetables, and fresh salad.","veg":true},
+{"category":"Bowls & Mains","name":"Mushroom Gravy Bowl","price":249,"description":"Creamy mushroom gravy with mashed potatoes, grilled vegetables, and chickpeas.","veg":true},
+{"category":"Bowls & Mains","name":"Grilled Chicken","price":349,"description":"Grilled chicken breast served with creamy mushroom sauce, mashed potatoes, and sautéed vegetables.","veg":false},
+{"category":"Bowls & Mains","name":"Shawarma Rice Bowl","price":259,"description":"Shawarma-spiced chicken, rice pilaf, mint chutney, sautéed vegetables, and fresh salad.","veg":false},
+{"category":"Bowls & Mains","name":"Mexican Rice Bowl Chicken","price":259,"description":"Cajun-spiced chicken, Mexican-style rice pilaf, sautéed vegetables, and fresh salad.","veg":false},
+{"category":"Bowls & Mains","name":"Veggie Bowl","price":219,"description":"Biryani-spiced brown rice, paneer gravy, sautéed vegetables, and lachha onions.","veg":true},
+{"category":"Bowls & Mains","name":"Indie Bowl Veg","price":219,"description":"OTM-style gravy, fragrant rice pilaf, sautéed vegetables, and fresh salad.","veg":true},
+{"category":"Bowls & Mains","name":"Mexican Rice Bowl Paneer","price":239,"description":"A savoury Café Cynthia favourite, prepared for a satisfying bite.","veg":true},
+{"category":"Sandwiches & Burgers","name":"Shawarma Sandwich","price":179,"description":"Artisanal bread layered with shawarma-spiced chicken, lachha onions, and garlic aioli.","veg":false},
+{"category":"Sandwiches & Burgers","name":"Paneer Sandwich","price":169,"description":"Artisanal bread with golden-fried paneer, creamy OTM sauce, and fresh vegetables.","veg":true},
+{"category":"Sandwiches & Burgers","name":"Egg Sandwich","price":139,"description":"Artisanal bread layered with seasoned eggs and fresh vegetables.","veg":false},
+{"category":"Sandwiches & Burgers","name":"Chicken Sandwich","price":179,"description":"Artisanal bread with seasoned chicken, fresh vegetables, and house sauce.","veg":false},
+{"category":"Sandwiches & Burgers","name":"Chicken Burger","price":199,"description":"Crispy chicken, fresh lettuce, vegetables, and house sauce served in a toasted burger bun.","veg":false},
+{"category":"Sandwiches & Burgers","name":"Veg Burger","price":149,"description":"A satisfying handheld favourite, freshly prepared for a quick and delicious bite.","veg":true},
+{"category":"Appetizers & Sides","name":"Salted Fries","price":119,"description":"Crispy golden fries seasoned with salt.","veg":true},
+{"category":"Appetizers & Sides","name":"Peri Peri Fries","price":139,"description":"Crispy fries tossed in house peri peri seasoning.","veg":true},
+{"category":"Appetizers & Sides","name":"Cheesy Fries","price":169,"description":"Crispy fries topped with creamy cheese sauce.","veg":true},
+{"category":"Appetizers & Sides","name":"Chicken Nuggets","price":179,"description":"Crispy golden chicken nuggets served with house dip.","veg":false},
+{"category":"Appetizers & Sides","name":"Chicken Popcorn","price":179,"description":"Bite-sized crispy chicken served with house dip.","veg":false},
+{"category":"Appetizers & Sides","name":"Veg Nuggets","price":149,"description":"Crispy vegetable nuggets served with house dip.","veg":true},
+{"category":"Appetizers & Sides","name":"Veg Popcorn","price":149,"description":"Crispy bite-sized vegetable bites served with house dip.","veg":true},
+{"category":"Appetizers & Sides","name":"Peri Peri Fried Chicken","price":249,"description":"Crispy fried chicken tossed in house peri peri seasoning.","veg":false},
+{"category":"Appetizers & Sides","name":"BBQ Chicken Wings","price":249,"description":"Crispy chicken wings glazed with smoky BBQ sauce.","veg":false},
+{"category":"Appetizers & Sides","name":"Cheesy Nachos","price":169,"description":"A flavour-packed snack, ideal for sharing or enjoying on its own.","veg":true},
+{"category":"Appetizers & Sides","name":"Chilli Chicken","price":229,"description":"A savoury Café Cynthia favourite, prepared for a satisfying bite.","veg":false},
+{"category":"Appetizers & Sides","name":"Jalapeno Mozzarella Sticks","price":220,"description":"A flavour-packed snack, ideal for sharing or enjoying on its own.","veg":true},
+{"category":"Appetizers & Sides","name":"Parsley Fish","price":299,"description":"A savoury Café Cynthia favourite, prepared for a satisfying bite.","veg":false},
+{"category":"Appetizers & Sides","name":"Chilli Paneer","price":229,"description":"A Café Cynthia favourite, thoughtfully prepared and ready to enjoy.","veg":true},
+{"category":"Appetizers & Sides","name":"Chilli Mushroom","price":229,"description":"A savoury Café Cynthia favourite, prepared for a satisfying bite.","veg":true},
+{"category":"Pizza","name":"Margherita Pizza","price":219,"description":"Classic tomato sauce, mozzarella, and Italian herbs.","veg":true},
+{"category":"Pizza","name":"Chicken Pizza","price":279,"description":"Classic pizza topped with seasoned chicken, mozzarella, and house toppings.","veg":false},
+{"category":"Pizza","name":"Garden Veggie Pizza","price":259,"description":"Tomato sauce, mozzarella, and a selection of fresh garden vegetables.","veg":true},
+{"category":"Pasta","name":"Alfredo Pasta Veg","price":229,"description":"Creamy Alfredo sauce tossed with pasta and Italian herbs.","veg":true},
+{"category":"Pasta","name":"Arrabbiata Pasta Veg","price":229,"description":"Pasta tossed in a spicy tomato and garlic sauce with Italian herbs.","veg":true},
+{"category":"Pasta","name":"Pink Sauce Pasta Veg","price":239,"description":"Creamy tomato sauce tossed with pasta and Italian herbs.","veg":true},
+{"category":"Pasta","name":"Arrabbiata Pasta Non-Veg","price":269,"description":"A comforting pasta preparation with a arrabbiata-style sauce.","veg":false},
+{"category":"Pasta","name":"Alfredo Pasta Non-Veg","price":269,"description":"A comforting pasta preparation with a alfredo-style sauce.","veg":false},
+{"category":"Pasta","name":"Pink Sauce Pasta Non-Veg","price":279,"description":"A comforting pasta preparation with a pink sauce-style sauce.","veg":false},
+{"category":"Waffles","name":"Triple Chocolate Waffle","price":180,"description":"A freshly prepared waffle featuring Triple Chocolate flavour.","veg":true},
+{"category":"Waffles","name":"Kitkat Waffle","price":190,"description":"A freshly prepared waffle featuring Kitkat flavour.","veg":true},
+{"category":"Waffles","name":"Oreo Waffle","price":190,"description":"A freshly prepared waffle featuring Oreo flavour.","veg":true},
+{"category":"Waffles","name":"Nutella Waffle","price":210,"description":"A freshly prepared waffle featuring Nutella flavour.","veg":true},
+{"category":"Waffles","name":"Biscoff Waffle","price":210,"description":"A freshly prepared waffle featuring Biscoff flavour.","veg":true},
+{"category":"Waffles","name":"Blueberry Waffle","price":220,"description":"A freshly prepared waffle featuring Blueberry flavour.","veg":true},
+{"category":"Waffles","name":"Strawberry Waffle","price":220,"description":"A freshly prepared waffle featuring Strawberry flavour.","veg":true},
+{"category":"Brownies","name":"Triple Chocolate Brownie","price":110,"description":"A rich, indulgent chocolate dessert with a satisfying brownie finish.","veg":true},
+{"category":"Brownies","name":"Brownie Oreo","price":120,"description":"A rich, indulgent chocolate dessert with a satisfying brownie finish.","veg":true},
+{"category":"Brownies","name":"Brownie with Ice Cream","price":140,"description":"A rich, indulgent chocolate dessert with a satisfying brownie finish.","veg":true},
+{"category":"Brownies","name":"Lotus Biscoff Brownie","price":140,"description":"A rich, indulgent chocolate dessert with a satisfying brownie finish.","veg":true},
+{"category":"Brownies","name":"Hazelnut Brownie","price":140,"description":"A rich, indulgent chocolate dessert with a satisfying brownie finish.","veg":true},
+{"category":"Brownies","name":"DD Special Death by Chocolate","price":240,"description":"A rich, indulgent chocolate dessert with a satisfying brownie finish.","veg":true},
+{"category":"Special Bowls","name":"Triple Chocolate Bowl","price":170,"description":"A dessert bowl layered around the signature Triple Chocolate flavour.","veg":true},
+{"category":"Special Bowls","name":"Brownie Bowl","price":190,"description":"A rich, indulgent chocolate dessert with a satisfying brownie finish.","veg":true},
+{"category":"Special Bowls","name":"Brownie Bites","price":170,"description":"A rich, indulgent chocolate dessert with a satisfying brownie finish.","veg":true},
+{"category":"Special Bowls","name":"Oreo Bowl","price":200,"description":"A dessert bowl layered around the signature Oreo flavour.","veg":true},
+{"category":"Special Bowls","name":"Munch Bowl","price":200,"description":"A dessert bowl layered around the signature Munch flavour.","veg":true},
+{"category":"Special Bowls","name":"Kitkat Bowl","price":200,"description":"A dessert bowl layered around the signature Kitkat flavour.","veg":true},
+{"category":"Special Bowls","name":"Biscoff Bowl","price":210,"description":"A dessert bowl layered around the signature Biscoff flavour.","veg":true},
+{"category":"Special Bowls","name":"Nutella Bites","price":190,"description":"A Café Cynthia favourite, thoughtfully prepared and ready to enjoy.","veg":true},
+{"category":"Special Bowls","name":"Crunchy Chocolate Bowl","price":200,"description":"A dessert bowl layered around the signature Crunchy Chocolate flavour.","veg":true},
+{"category":"Special Bowls","name":"Kunafa Bowl","price":240,"description":"A dessert bowl layered around the signature Kunafa flavour.","veg":true},
+{"category":"Cakes","name":"Magnum Cake","price":190,"description":"A delightful cake creation made for a sweet treat.","veg":true},
+{"category":"Cakes","name":"Matilda Cake","price":160,"description":"A delightful cake creation made for a sweet treat.","veg":true},
+{"category":"Cakes","name":"Sleeping Teddy Chocolate","price":190,"description":"A delightful cake creation made for a sweet treat.","veg":true},
+{"category":"Cakes","name":"Sleeping Teddy With Brownie","price":240,"description":"A rich, indulgent chocolate dessert with a satisfying brownie finish.","veg":true},
+{"category":"Black Coffee","name":"Espresso (Hot)","price":130,"description":"Hot beverage","veg":true},
+{"category":"Black Coffee","name":"Espresso (Cold)","price":140,"description":"Cold beverage","veg":true},
+{"category":"Black Coffee","name":"Americano (Hot)","price":150,"description":"Hot beverage","veg":true},
+{"category":"Black Coffee","name":"Americano (Cold)","price":160,"description":"Cold beverage","veg":true},
+{"category":"Milk Coffees","name":"Cappuccino (Hot)","price":180,"description":"Hot beverage","veg":true},
+{"category":"Milk Coffees","name":"Latte (Hot)","price":190,"description":"Hot beverage","veg":true},
+{"category":"Milk Coffees","name":"Latte (Cold)","price":200,"description":"Cold beverage","veg":true},
+{"category":"Milk Coffees","name":"Mocha (Hot)","price":190,"description":"Hot beverage","veg":true},
+{"category":"Milk Coffees","name":"Mocha (Cold)","price":200,"description":"Cold beverage","veg":true},
+{"category":"Milk Coffees","name":"Irish Coffee (Hot)","price":200,"description":"Hot beverage","veg":true},
+{"category":"Milk Coffees","name":"Spanish Latte (Hot)","price":200,"description":"Hot beverage","veg":true},
+{"category":"Milk Coffees","name":"Spanish Latte (Cold)","price":210,"description":"Cold beverage","veg":true},
+{"category":"Milk Coffees","name":"Vanilla Latte Hot","price":200,"description":"Hot beverage","veg":true},
+{"category":"Milk Coffees","name":"Vanilla Latte Cold","price":210,"description":"Cold beverage","veg":true},
+{"category":"Milk Coffees","name":"Flat White Hot","price":170,"description":"Hot beverage","veg":true},
+{"category":"Milk Coffees","name":"Irish Coffee (Cold)","price":210,"description":"Cold beverage","veg":true},
+{"category":"Milk Coffees","name":"Cinnamon Latte (Hot)","price":200,"description":"Hot beverage","veg":true},
+{"category":"Milk Coffees","name":"Cinnamon Latte (Cold)","price":210,"description":"Cold beverage","veg":true},
+{"category":"Milk Coffees","name":"Hazelnut Latte (Hot)","price":200,"description":"Hot beverage","veg":true},
+{"category":"Milk Coffees","name":"Hazelnut Latte (Cold)","price":210,"description":"Cold beverage","veg":true},
+{"category":"Milk Coffees","name":"Caramel Latte (Hot)","price":200,"description":"Hot beverage","veg":true},
+{"category":"Milk Coffees","name":"Caramel Latte (Cold)","price":210,"description":"Cold beverage","veg":true},
+{"category":"Milk Coffees","name":"Irish Latte (Hot)","price":200,"description":"Hot beverage","veg":true},
+{"category":"Milk Coffees","name":"Irish Latte (Cold)","price":210,"description":"Cold beverage","veg":true},
+{"category":"Milk Shakes","name":"Strawberry Shake (Cold)","price":200,"description":"Cold beverage","veg":true},
+{"category":"Milk Shakes","name":"Brownie Shake (Cold)","price":220,"description":"Cold beverage","veg":true},
+{"category":"Milk Shakes","name":"Nutella Shake (Cold)","price":230,"description":"Cold beverage","veg":true},
+{"category":"Milk Shakes","name":"Chocolate Shake (Cold)","price":190,"description":"Cold beverage","veg":true},
+{"category":"Frappes","name":"Café Frappe (Cold)","price":220,"description":"Cold beverage","veg":true},
+{"category":"Frappes","name":"Mocha Frappe (Cold)","price":240,"description":"Cold beverage","veg":true},
+{"category":"Frappes","name":"Caramel Frappe (Cold)","price":240,"description":"Cold beverage","veg":true},
+{"category":"Frappes","name":"Hazelnut Frappe (Cold)","price":240,"description":"Cold beverage","veg":true},
+{"category":"Frappes","name":"Salted Caramel Frappe (Cold)","price":240,"description":"Cold beverage","veg":true},
+{"category":"Frappes","name":"Popcorn Frappe (Cold)","price":240,"description":"Cold beverage","veg":true},
+{"category":"Frappes","name":"Affogato (Desert Drink)","price":200,"description":"Cold beverage","veg":true},
+{"category":"Coffee Coolers","name":"Espresso Tonic (Cold)","price":200,"description":"Cold beverage","veg":true},
+{"category":"Coffee Coolers","name":"Cold Brew Tonic (Cold)","price":190,"description":"Cold beverage","veg":true},
+{"category":"Coffee Coolers","name":"Cranberry Espresso (Cold)","price":200,"description":"Cold beverage","veg":true},
+{"category":"Coffee Coolers","name":"Coconut Cold Brew (Cold)","price":200,"description":"Cold beverage","veg":true},
+{"category":"Coffee Coolers","name":"Espresso Coconut Cloud (Cold)","price":220,"description":"Cold beverage","veg":true},
+{"category":"Beverages","name":"Water Bottle (Room Temperature)","price":20,"description":"Mineral","veg":true},
+{"category":"Beverages","name":"Water Bottle (Chilled)","price":20,"description":"Mineral","veg":true},
+{"category":"Beverages","name":"Coke","price":90,"description":"no sugar","veg":true},
+{"category":"Beverages","name":"Diet Coke","price":90,"description":"no sugar","veg":true},
+{"category":"Beverages","name":"Virgin Mojito","price":130,"description":"A refreshing chilled drink with a distinctive virgin mojito character.","veg":true},
+{"category":"Beverages","name":"Fresh Lime Salt","price":120,"description":"A refreshing chilled drink with a distinctive fresh lime salt character.","veg":true},
+{"category":"Beverages","name":"Fresh Lime Sugar","price":120,"description":"A refreshing chilled drink with a distinctive fresh lime sugar character.","veg":true},
+{"category":"Beverages","name":"Fresh Lime Salt & Sugar","price":120,"description":"A refreshing chilled drink with a distinctive fresh lime salt & sugar character.","veg":true}
+];const WA='919493563935';
+
+const CART_KEY   = 'cc_cart_v2';
+const OPEN_HOUR  = 16;   
+const CLOSE_HOUR = 23;   
+const TZ         = 'Asia/Kolkata';
+
+const $ = s => document.querySelector(s);
+const $$ = s => Array.prototype.slice.call(document.querySelectorAll(s));
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const money = n => '₹' + Number(n || 0).toLocaleString('en-IN');
+const slug = s => String(s || '').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+const TAG_LABEL = { bestseller:'Bestseller', spicy:'Spicy', new:'New', chef:'Chef’s pick' };
+
+const items = ITEMS.map(it => ({
+  name:        String(it.name || 'Untitled'),
+  category:    String(it.category || 'Menu'),
+  price:       Math.max(0, Number(it.price) || 0),
+  description: String(it.description || ''),
+  veg:         it.veg === true ? true : (it.veg === false ? false : null),
+  tags:        Array.isArray(it.tags) ? it.tags : [],
+  available:   it.available !== false
+}));
+
+const usedIds = new Set();
+items.forEach(it => {
+  let base = slug(it.category) + '--' + slug(it.name);
+  if (base === '--' || base === '') base = 'dish';
+  let id = base, n = 2;
+  while (usedIds.has(id)) id = base + '-' + (n++);
+  usedIds.add(id);
+  it.id = id;
+});
+const byId = new Map(items.map(it => [it.id, it]));
+
+let cart = {};
+try { cart = JSON.parse(localStorage.getItem(CART_KEY) || '{}') || {}; } catch (e) { cart = {}; }
+if (typeof cart !== 'object' || Array.isArray(cart)) cart = {};
+Object.keys(cart).forEach(k => {
+  if (!byId.has(k) || !(cart[k] > 0)) delete cart[k];
+});
+const saveCart = () => {
+  try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch (e) {}
+};
+
+const params  = new URLSearchParams(location.search);
+const tableNo = (params.get('table') || params.get('t') || '').trim().slice(0, 8);
+if (tableNo) {
+  $('#tablePill').textContent = '🪑 Table ' + tableNo;
+  $('#callWaiterBtn').classList.add('show'); // Show call waiter if at a table
+}
+
+function updateOpenState() {
+  let minutesNow = 0;
+  try {
+    const parts = new Intl.DateTimeFormat('en-GB', { timeZone: TZ, hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(new Date());
+    const h = Number((parts.find(p => p.type === 'hour')   || {}).value || 0) % 24;
+    const m = Number((parts.find(p => p.type === 'minute') || {}).value || 0);
+    minutesNow = h * 60 + m;
+  } catch (e) {
+    const d = new Date();
+    minutesNow = d.getHours() * 60 + d.getMinutes();
+  }
+  const isOpen = minutesNow >= (OPEN_HOUR * 60) && minutesNow < (CLOSE_HOUR * 60);
+  const pill = $('#openPill'), txt = $('#openText');
+  pill.classList.toggle('is-open', isOpen);
+  pill.classList.toggle('is-closed', !isOpen);
+  txt.textContent = isOpen ? 'Open now · till 11 PM' : 'Closed · opens 4 PM';
+  $('#closedNotice').classList.toggle('hidden', isOpen);
+}
+updateOpenState();
+setInterval(updateOpenState, 60000);
+
+const menuEl  = $('#menu');
+const chipsEl = $('#chips');
+const elById  = new Map();
+const groups = new Map();
+items.forEach(it => {
+  if (!groups.has(it.category)) groups.set(it.category, []);
+  groups.get(it.category).push(it);
+});
+
+function itemHTML(it) {
+  const veg = it.veg === true  ? '<span class="veg-dot" role="img" aria-label="Vegetarian"></span>' : it.veg === false ? '<span class="veg-dot nonveg" role="img" aria-label="Non-vegetarian"></span>' : '';
+  const badges = it.tags.filter(t => TAG_LABEL[t]).map(t => '<span class="badge">' + esc(TAG_LABEL[t]) + '</span>').join('');
+  const searchText = (it.name + ' ' + it.category + ' ' + it.description).toLowerCase();
+
+  const ctl = it.available
+    ? '<button class="add" type="button" data-add aria-label="Add ' + esc(it.name) + ' to cart">+</button>' +
+      '<div class="stepper">' +
+        '<button type="button" data-minus aria-label="Remove one ' + esc(it.name) + '">−</button>' +
+        '<span class="q" data-qty>0</span>' +
+        '<button type="button" data-plus aria-label="Add one ' + esc(it.name) + '">+</button>' +
+      '</div>'
+    : '<span class="soldout">Sold out</span>';
+
+  return '<article class="item' + (it.available ? '' : ' unavailable') + '" data-id="' + esc(it.id) + '" data-cat="' + esc(it.category) + '" data-search="' + esc(searchText) + '">' +
+           '<div class="item-main"><h3>' + veg + esc(it.name) + badges + '</h3>' + (it.description ? '<p>' + esc(it.description) + '</p>' : '') + '<div class="price">' + money(it.price) + '</div></div>' +
+           '<div class="ctl">' + ctl + '</div>' +
+         '</article>';
+}
+
+let menuHTML = '';
+groups.forEach((list, cat) => {
+  menuHTML += '<section class="section" id="cat-' + slug(cat) + '" data-cat="' + esc(cat) + '">' +
+      '<div class="section-title"><h2>' + esc(cat) + '</h2><small>' + list.length + (list.length === 1 ? ' item' : ' items') + '</small></div>' +
+      '<div class="menu">' + list.map(itemHTML).join('') + '</div></section>';
+});
+menuEl.innerHTML = menuHTML;
+$$('.item').forEach(el => elById.set(el.dataset.id, el));
+
+let chipHTML = '<button type="button" class="active" data-cat="">All</button>';
+groups.forEach((_, cat) => { chipHTML += '<button type="button" data-cat="' + esc(cat) + '">' + esc(cat) + '</button>'; });
+chipsEl.innerHTML = chipHTML;
+
+let activeCat = '';
+const searchInput = $('#search');
+const searchWrap  = $('#searchWrap');
+const emptyState  = $('#emptyState');
+
+function applyFilter() {
+  const q = searchInput.value.trim().toLowerCase();
+  let visible = 0;
+  $$('.section').forEach(sec => {
+    let shown = 0;
+    sec.querySelectorAll('.item').forEach(el => {
+      const okCat  = !activeCat || el.dataset.cat === activeCat;
+      const okText = !q || el.dataset.search.indexOf(q) !== -1;
+      const show   = okCat && okText;
+      el.classList.toggle('hidden', !show);
+      if (show) shown++;
+    });
+    sec.classList.toggle('hidden', shown === 0);
+    visible += shown;
+  });
+  emptyState.classList.toggle('hidden', visible > 0);
+}
+
+let filterTimer;
+searchInput.addEventListener('input', () => {
+  searchWrap.classList.toggle('has-value', searchInput.value.length > 0);
+  clearTimeout(filterTimer);
+  filterTimer = setTimeout(applyFilter, 120);
+});
+
+$('#searchClear').addEventListener('click', () => {
+  searchInput.value = '';
+  searchWrap.classList.remove('has-value');
+  searchInput.focus();
+  applyFilter();
+});
+
+chipsEl.addEventListener('click', e => {
+  const btn = e.target.closest('button[data-cat]');
+  if (!btn) return;
+  activeCat = btn.dataset.cat;
+  $$('#chips button').forEach(b => b.classList.toggle('active', b === btn));
+  applyFilter();
+  if (activeCat) {
+    const target = document.getElementById('cat-' + slug(activeCat));
+    if (target) {
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    }
+  } else { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+});
+
+const sticky     = $('#sticky');
+const cartCount  = $('#cartCount');
+const cartTotal  = $('#cartTotal');
+const cartModal  = $('#cartModal');
+const doneModal  = $('#doneModal');
+let lastFocused  = null;
+
+function cartEntries() {
+  return Object.keys(cart).filter(id => cart[id] > 0 && byId.has(id)).map(id => ({ item: byId.get(id), qty: cart[id] }));
+}
+function cartTotals() {
+  return cartEntries().reduce((acc, e) => { acc.count += e.qty; acc.total += e.qty * e.item.price; return acc; }, { count: 0, total: 0 });
+}
+function updateCard(id) {
+  const el = elById.get(id);
+  if (!el) return;
+  const q = cart[id] || 0;
+  el.classList.toggle('has-qty', q > 0);
+  const qEl = el.querySelector('[data-qty]');
+  if (qEl) qEl.textContent = q;
+}
+function updateCartBar(pop) {
+  const t = cartTotals();
+  if (!t.count) { sticky.classList.remove('visible'); return; }
+  sticky.classList.add('visible');
+  cartCount.textContent = t.count + (t.count === 1 ? ' item' : ' items');
+  cartTotal.textContent = money(t.total);
+  if (pop) { cartCount.classList.remove('pop'); void cartCount.offsetWidth; cartCount.classList.add('pop'); }
+}
+function changeQty(id, delta) {
+  const item = byId.get(id);
+  if (!item || !item.available) return;
+  const next = Math.max(0, Math.min(99, (cart[id] || 0) + delta));
+  if (next === 0) delete cart[id]; else cart[id] = next;
+  saveCart(); updateCard(id); updateCartBar(delta > 0);
+  if (delta > 0) toast('Added ' + item.name);
+}
+menuEl.addEventListener('click', e => {
+  const card = e.target.closest('.item');
+  if (!card) return;
+  const id = card.dataset.id;
+  if (e.target.closest('[data-add],[data-plus]')) changeQty(id, 1);
+  else if (e.target.closest('[data-minus]'))      changeQty(id, -1);
+});
+
+let toastTimer;
+function toast(msg) {
+  const t = $('#toast'); t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 1700);
+}
+
+/* ═══════════ UPSELL LOGIC ═══════════ */
+let currentUpsellItem = null;
+
+function renderUpsell() {
+  const entries = cartEntries();
+  const box = $('#upsellBox');
+  const nameEl = $('#upsellName');
+  currentUpsellItem = null;
+  box.style.display = 'none';
+
+  if (!entries.length) return;
+
+  // Identify what is in the cart
+  const cats = new Set(entries.map(e => e.item.category));
+  const hasFood = entries.some(e => ['Bowls & Mains', 'Sandwiches & Burgers', 'Pizza', 'Pasta'].includes(e.item.category));
+  const hasDessert = entries.some(e => ['Waffles', 'Brownies', 'Special Bowls', 'Cakes'].includes(e.item.category));
+  const hasDrink = entries.some(e => ['Black Coffee', 'Milk Coffees', 'Milk Shakes', 'Frappes', 'Coffee Coolers', 'Beverages'].includes(e.item.category));
+
+  // Rule 1: If they have Food but no Drink -> Suggest a Drink
+  if (hasFood && !hasDrink) {
+    currentUpsellItem = items.find(i => i.category === 'Milk Shakes' && i.available) || 
+                        items.find(i => i.category === 'Beverages' && i.available);
+  } 
+  // Rule 2: If they have Food + Drink but no Dessert -> Suggest a Dessert
+  else if (hasFood && hasDrink && !hasDessert) {
+    currentUpsellItem = items.find(i => i.category === 'Brownies' && i.available) || 
+                        items.find(i => i.category === 'Waffles' && i.available);
+  }
+  // Rule 3: Just a drink, suggest a snack
+  else if (!hasFood && hasDrink && !hasDessert) {
+    currentUpsellItem = items.find(i => i.category === 'Appetizers & Sides' && i.available);
+  }
+
+  // Don't suggest something they already have
+  if (currentUpsellItem && cart[currentUpsellItem.id]) {
+    currentUpsellItem = null;
+  }
+
+  if (currentUpsellItem) {
+    box.style.display = 'flex';
+    nameEl.textContent = currentUpsellItem.name + ' (+' + money(currentUpsellItem.price) + ')';
+  }
+}
+
+$('#upsellAddBtn').addEventListener('click', () => {
+  if (currentUpsellItem) {
+    changeQty(currentUpsellItem.id, 1);
+    renderCartLines(); // Re-render lines
+    renderUpsell();    // Re-evaluate upsell (might hide it now)
+  }
+});
+
+/* ═══════════ CART MODAL ═══════════ */
+function renderCartLines() {
+  const entries = cartEntries();
+  const box = $('#cartLines');
+  if (!entries.length) {
+    box.innerHTML = '<p class="empty">Your cart is empty.</p>';
+    $('#sendBtn').disabled = true;
+    return;
+  }
+  $('#sendBtn').disabled = false;
+  box.innerHTML = entries.map(e => '<div class="cartline"><div><span class="ln-name">' + esc(e.item.name) + '</span><small>' + e.qty + ' × ' + money(e.item.price) + '</small></div><div class="ln-price">' + money(e.qty * e.item.price) + '</div></div>').join('');
+  $('#modalTotal').textContent = money(cartTotals().total);
+}
+
+function openModal(el) {
+  lastFocused = document.activeElement;
+  el.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  const focusable = el.querySelector('input, button, select, textarea');
+  if (focusable) setTimeout(() => focusable.focus(), 60);
+}
+function closeModal(el) {
+  el.classList.remove('open');
+  document.body.style.overflow = '';
+  if (lastFocused && lastFocused.focus) lastFocused.focus();
+}
+
+$('#viewCart').addEventListener('click', () => {
+  renderCartLines();
+  renderUpsell();
+  $('#orderType').value = tableNo ? 'Dine-in' : 'Dine-in';
+  $('#tableNo').value = tableNo || '';
+  toggleTableField();
+  openModal(cartModal);
+});
+
+$$('[data-close]').forEach(b => b.addEventListener('click', () => closeModal(cartModal)));
+cartModal.addEventListener('click', e => { if (e.target === cartModal) closeModal(cartModal); });
+doneModal.addEventListener('click', e => { if (e.target === doneModal) closeModal(doneModal); });
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Escape') return;
+  if (cartModal.classList.contains('open')) closeModal(cartModal);
+  else if (doneModal.classList.contains('open')) closeModal(doneModal);
+});
+
+$('#orderType').addEventListener('change', toggleTableField);
+function toggleTableField() {
+  const isDineIn = $('#orderType').value === 'Dine-in';
+  $('#tableField').style.display = isDineIn ? 'block' : 'none';
+}
+
+function makeOrderId() { return 'CC-' + Date.now().toString(36).toUpperCase().slice(-5); }
+
+$('#sendBtn').addEventListener('click', () => {
+  const entries = cartEntries();
+  if (!entries.length) return;
+
+  const name = $('#custName').value.trim();
+  const type = $('#orderType').value;
+  const manualTable = $('#tableNo').value.trim();
+  
+  if (!name) { $('#custName').focus(); $('#sendFine').textContent = 'Please add your name.'; return; }
+  if (type === 'Dine-in' && !manualTable) { $('#tableNo').focus(); $('#sendFine').textContent = 'Please enter your table number.'; return; }
+
+  $('#sendFine').textContent = 'Opens WhatsApp with your order ready to send. Nothing is charged here.';
+  const notes  = $('#custNotes').value.trim();
+  const total  = cartTotals().total;
+  const orderId = makeOrderId();
+  const lines = entries.map(e => '• ' + e.qty + ' × ' + e.item.name + ' — ' + money(e.qty * e.item.price)).join('\n');
+
+  let msg = '*New Order — Café Cynthia*\n';
+  msg += '*Order:* ' + orderId + '\n';
+  msg += '*Type:* ' + type + '\n';
+  if (type === 'Dine-in') msg += '*Table:* ' + manualTable + '\n';
+  msg += '\n' + lines + '\n\n';
+  msg += '*Total: ' + money(total) + '*\n\n';
+  msg += '*Name:* ' + name;
+  if (notes) msg += '\n*Notes:* ' + notes;
+
+  const number = String(WA).replace(/\D/g, '');
+  window.open('https://wa.me/' + number + '?text=' + encodeURIComponent(msg), '_blank', 'noopener');
+
+  $('#doneOrderId').textContent = orderId;
+  closeModal(cartModal);
+  openModal(doneModal);
+});
+
+$('#newOrderBtn').addEventListener('click', () => {
+  Object.keys(cart).forEach(id => { delete cart[id]; updateCard(id); });
+  saveCart(); updateCartBar(false);
+  $('#custName').value = ''; $('#tableNo').value = ''; $('#custNotes').value = '';
+  closeModal(doneModal);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  toast('Cart cleared — enjoy!');
+});
+
+/* ═══════════ CALL WAITER LOGIC ═══════════ */
+$('#callWaiterBtn').addEventListener('click', () => {
+  let tNum = tableNo;
+  if (!tNum) {
+    tNum = prompt('Please enter your Table Number:');
+    if (!tNum) return; // user cancelled
+  }
+  const msg = '*Call Waiter* 🛎️\n*Table:* ' + tNum + '\nI need some assistance, please.';
+  const number = String(WA).replace(/\D/g, '');
+  window.open('https://wa.me/' + number + '?text=' + encodeURIComponent(msg), '_blank', 'noopener');
+});
+
+items.forEach(it => updateCard(it.id));
+updateCartBar(false);
+applyFilter();
+$('#year').textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
